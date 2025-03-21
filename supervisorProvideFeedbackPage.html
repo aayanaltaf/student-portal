@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Provide Feedback</title>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-4 sm:py-6">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left">Provide Feedback</h1>
+            <a href="supervisorHomePage.html" class="bg-white text-blue-900 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200 mt-4 sm:mt-0">
+                Go Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto my-4 sm:my-8 p-4 sm:p-6 bg-white rounded-lg shadow-md">
+        <!-- Feedback Form -->
+        <div class="mb-8">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Provide Feedback to Students</h2>
+            <form id="feedbackForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Student Selection -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Select Student</label>
+                    <select id="studentSelect" name="studentSelect"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Student</option>
+                        <option value="MED-12345">John Doe (MED-12345)</option>
+                        <option value="MED-67890">Jane Smith (MED-67890)</option>
+                        <!-- Add more students as needed -->
+                    </select>
+                </div>
+
+                <!-- Feedback Type -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Feedback Type</label>
+                    <select id="feedbackType" name="feedbackType"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Feedback Type</option>
+                        <option value="Positive">Positive</option>
+                        <option value="Constructive">Constructive</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+
+                <!-- Feedback Message -->
+                <div class="col-span-2 mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Feedback Message</label>
+                    <textarea id="feedbackMessage" name="feedbackMessage" rows="4"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        placeholder="Enter your feedback here..." required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-span-2 flex justify-end">
+                    <button type="submit"
+                        class="bg-blue-900 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-200">
+                        Submit Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Feedback Table -->
+        <div class="overflow-x-auto">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Existing Feedback</h2>
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Feedback Type</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Feedback Message</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Feedback Record 1 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED-12345</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">John Doe</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Positive</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">John has shown excellent progress in anatomy.</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="openEditFeedbackModal('MED-12345', 'John Doe', 'Positive', 'John has shown excellent progress in anatomy.')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Edit
+                            </button>
+                            <button onclick="deleteFeedback('MED-12345')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Feedback Record 2 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED-67890</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Jane Smith</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Constructive</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Jane needs to improve her time management skills.</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="openEditFeedbackModal('MED-67890', 'Jane Smith', 'Constructive', 'Jane needs to improve her time management skills.')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Edit
+                            </button>
+                            <button onclick="deleteFeedback('MED-67890')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Add more feedback records as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2 sm:py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+
+    <!-- Edit Feedback Modal -->
+    <div id="editFeedbackModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full sm:w-1/2 lg:w-1/3">
+            <h2 class="text-lg sm:text-xl font-semibold mb-4">Edit Feedback</h2>
+            <form id="editFeedbackForm">
+                <!-- Student ID -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Student ID</label>
+                    <input type="text" id="editFeedbackStudentId" name="editFeedbackStudentId"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        readonly>
+                </div>
+
+                <!-- Student Name -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Student Name</label>
+                    <input type="text" id="editFeedbackStudentName" name="editFeedbackStudentName"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        readonly>
+                </div>
+
+                <!-- Feedback Type -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Feedback Type</label>
+                    <select id="editFeedbackType" name="editFeedbackType"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Feedback Type</option>
+                        <option value="Positive">Positive</option>
+                        <option value="Constructive">Constructive</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+
+                <!-- Feedback Message -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Feedback Message</label>
+                    <textarea id="editFeedbackMessage" name="editFeedbackMessage" rows="4"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required></textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end">
+                    <button type="button" onclick="closeEditFeedbackModal()"
+                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 mr-2 text-sm sm:text-base">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modals -->
+    <script>
+        // Edit Feedback Modal
+        function openEditFeedbackModal(studentId, studentName, feedbackType, feedbackMessage) {
+            document.getElementById('editFeedbackStudentId').value = studentId;
+            document.getElementById('editFeedbackStudentName').value = studentName;
+            document.getElementById('editFeedbackType').value = feedbackType;
+            document.getElementById('editFeedbackMessage').value = feedbackMessage;
+            document.getElementById('editFeedbackModal').classList.remove('hidden');
+        }
+
+        function closeEditFeedbackModal() {
+            document.getElementById('editFeedbackModal').classList.add('hidden');
+        }
+
+        // Delete Feedback
+        function deleteFeedback(studentId) {
+            if (confirm(`Are you sure you want to delete feedback for student ${studentId}?`)) {
+                alert(`Feedback for student ${studentId} deleted successfully!`);
+                // Add logic to delete feedback from backend
+            }
+        }
+
+        // Form Submission (Feedback Form)
+        document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Feedback submitted successfully!');
+            // Add logic to submit feedback to backend
+        });
+
+        // Form Submission (Edit Feedback Form)
+        document.getElementById('editFeedbackForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Feedback updated successfully!');
+            closeEditFeedbackModal();
+            // Add logic to update feedback in backend
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Generate Reports</title>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-4 sm:py-6">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left">Generate Reports</h1>
+            <a href="supervisorHomePage.html" class="bg-white text-blue-900 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200 mt-4 sm:mt-0">
+                Go Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto my-4 sm:my-8 p-4 sm:p-6 bg-white rounded-lg shadow-md">
+        <!-- Filters and Report Options -->
+        <div class="filters mb-6">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Generate a Report</h2>
+            <form id="reportForm" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Report Type -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Report Type</label>
+                    <select id="reportType" name="reportType"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Report Type</option>
+                        <option value="Attendance">Attendance Report</option>
+                        <option value="Grades">Grades Report</option>
+                        <option value="Feedback">Feedback Report</option>
+                        <option value="Progress">Course Progress Report</option>
+                    </select>
+                </div>
+
+                <!-- Course -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Course</label>
+                    <select id="reportCourse" name="reportCourse"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Course</option>
+                        <option value="MED101">MED101 - Anatomy</option>
+                        <option value="MED102">MED102 - Physiology</option>
+                        <option value="MED103">MED103 - Biochemistry</option>
+                    </select>
+                </div>
+
+                <!-- Semester -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Semester</label>
+                    <select id="reportSemester" name="reportSemester"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Semester</option>
+                        <option value="Semester 1">Semester 1</option>
+                        <option value="Semester 2">Semester 2</option>
+                        <option value="Semester 3">Semester 3</option>
+                    </select>
+                </div>
+
+                <!-- Date Range -->
+                <div class="mb-4 col-span-2">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Date Range</label>
+                    <div class="flex gap-4">
+                        <input type="date" id="startDate" name="startDate"
+                            class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                            required>
+                        <input type="date" id="endDate" name="endDate"
+                            class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Generate Report Button -->
+                <div class="col-span-2 md:col-span-3 flex justify-end">
+                    <button type="submit"
+                        class="bg-blue-900 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-200">
+                        Generate Report
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Generated Reports Table -->
+        <div class="overflow-x-auto">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Generated Reports</h2>
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Report ID</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Report Type</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Semester</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Date Range</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Report 1 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">REP-001</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Attendance Report</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED101 - Anatomy</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Semester 1</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">2023-09-01 to 2023-10-01</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="downloadReport('REP-001')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Download
+                            </button>
+                            <button onclick="deleteReport('REP-001')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Report 2 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">REP-002</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Grades Report</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED102 - Physiology</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Semester 2</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">2023-08-01 to 2023-09-01</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="downloadReport('REP-002')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Download
+                            </button>
+                            <button onclick="deleteReport('REP-002')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Add more reports as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2 sm:py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+
+    <!-- JavaScript for Actions -->
+    <script>
+        // Download Report
+        function downloadReport(reportId) {
+            alert(`Downloading report ${reportId}...`);
+            // Add logic to download the report
+        }
+
+        // Delete Report
+        function deleteReport(reportId) {
+            if (confirm(`Are you sure you want to delete report ${reportId}?`)) {
+                alert(`Report ${reportId} deleted successfully!`);
+                // Add logic to delete the report
+            }
+        }
+
+        // Form Submission (Generate Report)
+        document.getElementById('reportForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Report generated successfully!');
+            // Add logic to generate the report
+        });
+    </script>
+</body>
+
+</html>

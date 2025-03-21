@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <title>Courses</title>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-6">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-3xl font-bold">View/Update Courses</h1>
+            <a href="studentHomePage.html" class="bg-white text-blue-900 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200">
+                Go Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
+        <!-- Current Courses Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Enrolled Courses</h2>
+            <ul class="space-y-4">
+                <!-- Course 1 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED101 - Anatomy</span>
+                    <button onclick="dropCourse('MED101')" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Drop Course
+                    </button>
+                </li>
+
+                <!-- Course 2 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED102 - Physiology</span>
+                    <button onclick="dropCourse('MED102')" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Drop Course
+                    </button>
+                </li>
+
+                <!-- Course 3 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED103 - Biochemistry</span>
+                    <button onclick="dropCourse('MED103')" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Drop Course
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Add Courses Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Add Courses</h2>
+            <ul class="space-y-4">
+                <!-- Course 1 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED201 - Pharmacology</span>
+                    <button onclick="addCourse('MED201')" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Add Course
+                    </button>
+                </li>
+
+                <!-- Course 2 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED202 - Pathology</span>
+                    <button onclick="addCourse('MED202')" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Add Course
+                    </button>
+                </li>
+
+                <!-- Course 3 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED203 - Microbiology</span>
+                    <button onclick="addCourse('MED203')" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Add Course
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Backlog Courses Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Backlog Courses</h2>
+            <ul class="space-y-4">
+                <!-- Backlog Course 1 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED104 - Histology</span>
+                    <button onclick="addCourse('MED104')" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Add Course
+                    </button>
+                </li>
+
+                <!-- Backlog Course 2 -->
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">MED105 - Immunology</span>
+                    <button onclick="addCourse('MED105')" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">
+                        Add Course
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+</body>
+
+</html>

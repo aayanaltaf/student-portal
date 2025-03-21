@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <title>Profile</title>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-6">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-3xl font-bold">Student Profile</h1>
+            <a href="studentHomePage.html" class="bg-white text-blue-900 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200">
+                Go Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-6">Personal Information</h2>
+
+        <!-- Two-Column Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div>
+                <!-- Student Name (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="studentName">Student Name</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        type="text" id="studentName" value="John Doe" readonly>
+                </div>
+
+                <!-- Student ID (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="studentId">Student ID</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        type="text" id="studentId" value="MED-12345" readonly>
+                </div>
+
+                <!-- Enrollment Year (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="enrollmentYear">Enrollment Year</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        type="text" id="enrollmentYear" value="2022" readonly>
+                </div>
+
+                <!-- Current Semester (Editable) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="currentSemester">Current Semester</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type="text" id="currentSemester" value="Fall 2023" readonly>
+                    <button type="button" onclick="enableEdit('currentSemester')"
+                        class="mt-2 text-blue-500 hover:text-blue-700 font-semibold">
+                        Edit
+                    </button>
+                </div>
+
+                <!-- Email (Editable) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="email">Email</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type="email" id="email" value="john.doe@duhs.edu.pk" readonly>
+                    <button type="button" onclick="enableEdit('email')"
+                        class="mt-2 text-blue-500 hover:text-blue-700 font-semibold">
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- Medical License Number (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="medicalLicense">Medical License Number</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        type="text" id="medicalLicense" value="PK-MED-123456" readonly>
+                </div>
+
+                <!-- Specialization (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="specialization">Specialization</label>
+                    <input
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        type="text" id="specialization" value="Cardiology" readonly>
+                </div>
+
+                <!-- Clinical Rotations (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="clinicalRotations">Clinical Rotations</label>
+                    <textarea
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        id="clinicalRotations" rows="3" readonly>Internal Medicine, Surgery, Pediatrics, Obstetrics & Gynecology</textarea>
+                </div>
+
+                <!-- Academic Performance (Read-only) -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2" for="academicPerformance">Academic Performance</label>
+                    <textarea
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
+                        id="academicPerformance" rows="3" readonly>GPA: 3.8/4.0, Dean's List (2022, 2023)</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="text-center mt-8">
+            <button type="button" onclick="saveChanges()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Save Changes
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+</body>
+
+</html>

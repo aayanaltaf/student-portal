@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>View Attendance</title>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-4 sm:py-6">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left">View Attendance</h1>
+            <a href="supervisorHomePage.html" class="bg-white text-blue-900 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200 mt-4 sm:mt-0">
+                Go Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto my-4 sm:my-8 p-4 sm:p-6 bg-white rounded-lg shadow-md">
+        <!-- Filters and Search -->
+        <div class="filters mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2" placeholder="Search by Student Name">
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2">
+                    <option value="">Select Course</option>
+                    <option value="MED101">MED101 - Anatomy</option>
+                    <option value="MED102">MED102 - Physiology</option>
+                    <option value="MED103">MED103 - Biochemistry</option>
+                </select>
+                <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2">
+                <button class="bg-blue-900 text-white rounded-lg p-2 hover:bg-blue-800 transition duration-200">Search</button>
+            </div>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Attendance Record 1 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED-12345</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">John Doe</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED101 - Anatomy</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">2023-10-01</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Present</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="openEditAttendanceModal('MED-12345', 'John Doe', 'MED101 - Anatomy', '2023-10-01', 'Present')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Edit
+                            </button>
+                            <button onclick="deleteAttendance('MED-12345')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Attendance Record 2 -->
+                    <tr>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED-67890</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Jane Smith</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">MED102 - Physiology</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">2023-10-01</td>
+                        <td class="px-4 sm:px-6 py-4 text-sm sm:text-base">Absent</td>
+                        <td class="px-4 sm:px-6 py-4">
+                            <button onclick="openEditAttendanceModal('MED-67890', 'Jane Smith', 'MED102 - Physiology', '2023-10-01', 'Absent')"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm">
+                                Edit
+                            </button>
+                            <button onclick="deleteAttendance('MED-67890')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 text-xs sm:text-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Add more attendance records as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2 sm:py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+
+    <!-- Edit Attendance Modal -->
+    <div id="editAttendanceModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full sm:w-1/2 lg:w-1/3">
+            <h2 class="text-lg sm:text-xl font-semibold mb-4">Edit Attendance</h2>
+            <form id="editAttendanceForm">
+                <!-- Student ID -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Student ID</label>
+                    <input type="text" id="editStudentId" name="editStudentId"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        readonly>
+                </div>
+
+                <!-- Student Name -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Student Name</label>
+                    <input type="text" id="editStudentName" name="editStudentName"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        readonly>
+                </div>
+
+                <!-- Course -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Course</label>
+                    <select id="editCourse" name="editCourse"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Course</option>
+                        <option value="MED101">MED101 - Anatomy</option>
+                        <option value="MED102">MED102 - Physiology</option>
+                        <option value="MED103">MED103 - Biochemistry</option>
+                    </select>
+                </div>
+
+                <!-- Date -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Date</label>
+                    <input type="date" id="editAttendanceDate" name="editAttendanceDate"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Status</label>
+                    <select id="editAttendanceStatus" name="editAttendanceStatus"
+                        class="w-full px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end">
+                    <button type="button" onclick="closeEditAttendanceModal()"
+                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 mr-2 text-sm sm:text-base">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modals -->
+    <script>
+        // Edit Attendance Modal
+        function openEditAttendanceModal(studentId, studentName, course, date, status) {
+            document.getElementById('editStudentId').value = studentId;
+            document.getElementById('editStudentName').value = studentName;
+            document.getElementById('editCourse').value = course;
+            document.getElementById('editAttendanceDate').value = date;
+            document.getElementById('editAttendanceStatus').value = status;
+            document.getElementById('editAttendanceModal').classList.remove('hidden');
+        }
+
+        function closeEditAttendanceModal() {
+            document.getElementById('editAttendanceModal').classList.add('hidden');
+        }
+
+        // Delete Attendance
+        function deleteAttendance(studentId) {
+            if (confirm(`Are you sure you want to delete attendance record for student ${studentId}?`)) {
+                alert(`Attendance record for student ${studentId} deleted successfully!`);
+                // Add logic to delete attendance from backend
+            }
+        }
+
+        // Form Submission (Edit Attendance)
+        document.getElementById('editAttendanceForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Attendance updated successfully!');
+            closeEditAttendanceModal();
+            // Add logic to update attendance in backend
+        });
+    </script>
+</body>
+
+</html>
