@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script2.js"></script>
+    <title>Admin Home</title>
+</head>
+
+<body>
+    <div class="relative border-t border-gray-200 bg-gray-50">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <!-- Logo on the left -->
+            <div class="logoDiv">
+                <img src="images/home_logo.png" alt="Logo" class="h-12">
+            </div>
+
+            <!-- Dropdown button on the right -->
+            <div>
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button">Settings
+                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div id="dropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="adminProfilePage.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                        </li>
+                        <li>
+                            <a href="forgotUpdatePasswordPage.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change password</a>
+                        </li>
+                        <li>
+                            <a href="index.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                                out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="headingWrapper bg-blue-900 py-6 text-center">
+        <h1 class="text-4xl font-bold text-white uppercase tracking-wider">
+            ADMIN PORTAL FOR SCHOOL OF POSTGRADUATE STUDIES, DUHS
+        </h1>
+    </div>
+    <div class="dashboardCardWrapper bg-gray-100 p-6 rounded-lg shadow-lg">
+        <div class="dashBoardHeading mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Welcome! Admin.</h2>
+        </div>
+        <div class="dashboard bg-white rounded-lg shadow-sm p-10">
+            <ul class="dashboardList grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 justify-items-center">
+                <!-- View Students -->
+                <li class="adminInfo p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200 w-full max-w-xs">
+                    <a href="adminViewStudentsPage.html" class="flex flex-col items-center text-gray-700 hover:text-blue-600">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                        View Students
+                    </a>
+                </li>
+
+                <!-- Add \ Update Institute -->
+                <li class="adminInfo p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200 w-full max-w-xs">
+                    <a href="adminInstitutePage.html" class="flex flex-col items-center text-gray-700 hover:text-blue-600">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
+                        </svg>
+                        Add \ Update Institute
+                    </a>
+                </li>
+
+                <!-- Add \ Update Department -->
+                <li class="adminInfo p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200 w-full max-w-xs">
+                    <a href="adminDepartmentPage.html" class="flex flex-col items-center text-gray-700 hover:text-blue-600">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        Add \ Update Department
+                    </a>
+                </li>
+
+                <!-- Add \ Update Supervisor -->
+                <li class="adminInfo p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200 w-full max-w-xs">
+                    <a href="adminSupervisorPage.html" class="flex flex-col items-center text-gray-700 hover:text-blue-600">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        Add \ Update Supervisor
+                    </a>
+                </li>
+
+                <!-- Logout -->
+                <li class="adminInfo p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200 w-full max-w-xs">
+                    <a href="index.html" id="logoutLink" class="flex flex-col items-center text-gray-700 hover:text-blue-600">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+</body>
+
+</html>

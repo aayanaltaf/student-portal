@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="script2.js"></script>
+    <title>Manage Departments - Admin Portal</title>
+    <style>
+        .status-active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .status-inactive {
+            background-color: #F44336;
+            color: white;
+        }
+        .department-card {
+            transition: all 0.3s ease;
+        }
+        .department-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header Section -->
+    <div class="relative border-t border-gray-200 bg-gray-50">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <div class="logoDiv">
+                <img src="images/home_logo.png" alt="Logo" class="h-12">
+            </div>
+            <div>
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button">Settings
+                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <div id="dropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="adminProfilePage.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                        </li>
+                        <li>
+                            <a href="forgotUpdatePasswordPage.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change password</a>
+                        </li>
+                        <li>
+                            <a href="index.html"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                                out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="headingWrapper bg-blue-900 py-6 text-center">
+        <h1 class="text-4xl font-bold text-white uppercase tracking-wider">
+            ADMIN PORTAL FOR SCHOOL OF POSTGRADUATE STUDIES, DUHS
+        </h1>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">DEPARTMENT</h2>
+            
+            <!-- Add/Edit Department Form -->
+            <div class="mb-8 p-6 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4" id="formTitle">ADD NEW DEPARTMENT</h3>
+                <form id="departmentForm">
+                    <input type="hidden" id="editIndex" value="-1">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="departmentName" class="block text-sm font-medium text-gray-700 mb-1">DEPARTMENT NAME</label>
+                            <input type="text" id="departmentName" name="departmentName" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="instituteSelect" class="block text-sm font-medium text-gray-700 mb-1">INSTITUTE NAME</label>
+                            <select id="instituteSelect" name="instituteSelect" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">SELECT INSTITUTE NAME</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">STATUS</label>
+                        <div class="flex space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="status" value="inactive" class="form-radio h-5 w-5 text-blue-600">
+                                <span class="ml-2">IN ACTIVE</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="status" value="active" class="form-radio h-5 w-5 text-blue-600" checked>
+                                <span class="ml-2">ACTIVE</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex flex-wrap gap-4">
+                        <button type="submit" id="submitBtn"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            SAVE & ADD MORE
+                        </button>
+                        <button type="button" id="cancelEditBtn" style="display: none;"
+                            class="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                            CANCEL EDIT
+                        </button>
+                        <a href="adminHomePage.html" 
+                            class="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                            Back To Dashboard
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Departments List -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">EXISTING DEPARTMENTS</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DEPARTMENT NAME</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">INSTITUTE NAME</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STATUS</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="departmentsTableBody">
+                            <!-- Will be populated by script2.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white text-center py-4">
+        Copyright © 2025 DOW University of Health Sciences (DUHS)
+    </footer>
+
+    <script>
+        // Initialize the department page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the department page functions exist in script2.js
+            if (typeof departmentPage !== 'undefined' && typeof departmentPage.init === 'function') {
+                departmentPage.init();
+            } else {
+                console.error('Department page functions not found in script2.js');
+                // Fallback or error handling if needed
+            }
+        });
+    </script>
+</body>
+</html>

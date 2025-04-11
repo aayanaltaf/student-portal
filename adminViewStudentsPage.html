@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Students</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .status-active {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+        .status-inactive {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+        }
+        .scrollable-container {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        @media (max-width: 768px) {
+            .scrollable-container {
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+                <div class="logoDiv">
+                    <img src="images/home_logo.png" alt="Logo" class="h-12">
+                </div>
+                <nav class="flex space-x-4">
+                    <a href="adminHomePage.html" class="text-gray-700 hover:text-blue-600">Dashboard</a>
+                    <a href="adminViewStudentsPage.html" class="text-blue-600 font-semibold">Students</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Student Management</h2>
+                        <button id="addStudentBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                            Add New Student
+                        </button>
+                    </div>
+
+                    <!-- Search and Filter -->
+                    <div class="mb-6 flex flex-col sm:flex-row gap-4">
+                        <div class="flex-grow">
+                            <input type="text" id="searchInput" placeholder="Search students..." class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex space-x-2">
+                            <select id="statusFilter" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <select id="programFilter" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Programs</option>
+                                <option value="MBBS">MBBS</option>
+                                <option value="BDS">BDS</option>
+                                <option value="Nursing">Nursing</option>
+                                <option value="Pharmacy">Pharmacy</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Student Table -->
+                    <div class="scrollable-container">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50 sticky top-0">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supervisor</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Student data will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white shadow mt-8">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+                <p class="text-center text-gray-500">&copy; 2023 DUHS. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Add/Edit Student Modal -->
+    <div id="studentModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="px-6 py-4 border-b">
+                <h3 id="formTitle" class="text-xl font-semibold text-gray-900">Add New Student</h3>
+            </div>
+            <form id="studentForm" class="px-6 py-4">
+                <input type="hidden" id="editIndex" value="-1">
+                <div class="mb-4">
+                    <label for="studentId" class="block text-sm font-medium text-gray-700 mb-1">Student ID</label>
+                    <input type="text" id="studentId" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="studentName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="studentName" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="studentProgram" class="block text-sm font-medium text-gray-700 mb-1">Program</label>
+                    <select id="studentProgram" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="MBBS">MBBS</option>
+                        <option value="BDS">BDS</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="studentBatch" class="block text-sm font-medium text-gray-700 mb-1">Batch</label>
+                    <input type="text" id="studentBatch" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="studentSupervisor" class="block text-sm font-medium text-gray-700 mb-1">Supervisor</label>
+                    <input type="text" id="studentSupervisor" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <div class="flex space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="studentStatus" value="active" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Active</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="studentStatus" value="inactive" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Inactive</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" id="cancelEditBtn" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" id="submitBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Student data with localStorage persistence
+        const studentsData = JSON.parse(localStorage.getItem('students')) || [
+            {
+                id: "STU-2023-001",
+                name: "Ali Khan",
+                program: "MBBS",
+                batch: "2023",
+                supervisor: "Dr. Ahmed",
+                status: "active"
+            },
+            {
+                id: "STU-2023-002",
+                name: "Sara Ahmed",
+                program: "BDS",
+                batch: "2023",
+                supervisor: "Dr. Fatima",
+                status: "active"
+            },
+            {
+                id: "STU-2022-001",
+                name: "Usman Malik",
+                program: "Nursing",
+                batch: "2022",
+                supervisor: "Dr. Zainab",
+                status: "active"
+            },
+            {
+                id: "STU-2022-002",
+                name: "Ayesha Raza",
+                program: "Pharmacy",
+                batch: "2022",
+                supervisor: "Dr. Bilal",
+                status: "inactive"
+            },
+            {
+                id: "STU-2021-001",
+                name: "Bilal Hassan",
+                program: "MBBS",
+                batch: "2021",
+                supervisor: "Dr. Ahmed",
+                status: "active"
+            },
+            {
+                id: "STU-2021-002",
+                name: "Fatima Khan",
+                program: "BDS",
+                batch: "2021",
+                supervisor: "Dr. Fatima",
+                status: "active"
+            },
+            {
+                id: "STU-2020-001",
+                name: "Zainab Ali",
+                program: "Nursing",
+                batch: "2020",
+                supervisor: "Dr. Zainab",
+                status: "inactive"
+            },
+            {
+                id: "STU-2020-002",
+                name: "Hassan Raza",
+                program: "Pharmacy",
+                batch: "2020",
+                supervisor: "Dr. Bilal",
+                status: "active"
+            }
+        ];
+
+        // DOM Elements
+        const studentsTableBody = document.getElementById('studentsTableBody');
+        const studentModal = document.getElementById('studentModal');
+        const studentForm = document.getElementById('studentForm');
+        const addStudentBtn = document.getElementById('addStudentBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const editIndexInput = document.getElementById('editIndex');
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const programFilter = document.getElementById('programFilter');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStudents();
+            setupEventListeners();
+        });
+
+        // Render students in the table
+        function renderStudents(filteredStudents = null) {
+            studentsTableBody.innerHTML = '';
+            const studentsToRender = filteredStudents || studentsData;
+            
+            studentsToRender.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.className = 'student-card hover:bg-gray-50';
+                row.setAttribute('data-index', index);
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.program}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.batch}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.supervisor}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${student.status === 'active' ? 'status-active' : 'status-inactive'}">
+                            ${student.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button class="text-blue-600 hover:text-blue-900 mr-3 edit-btn">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 delete-btn">Delete</button>
+                    </td>
+                `;
+                studentsTableBody.appendChild(row);
+            });
+
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', handleEditStudent);
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', handleDeleteStudent);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Add new student button
+            addStudentBtn.addEventListener('click', () => {
+                document.getElementById('formTitle').textContent = 'Add New Student';
+                document.getElementById('submitBtn').textContent = 'Save';
+                editIndexInput.value = '-1';
+                studentForm.reset();
+                document.querySelector('input[name="studentStatus"][value="active"]').checked = true;
+                cancelEditBtn.style.display = 'inline-block';
+                studentModal.classList.remove('hidden');
+            });
+
+            // Form submission
+            studentForm.addEventListener('submit', handleFormSubmit);
+
+            // Cancel edit button
+            cancelEditBtn.addEventListener('click', () => {
+                studentModal.classList.add('hidden');
+            });
+
+            // Search input
+            searchInput.addEventListener('input', filterStudents);
+
+            // Filter dropdowns
+            statusFilter.addEventListener('change', filterStudents);
+            programFilter.addEventListener('change', filterStudents);
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const studentId = document.getElementById('studentId').value;
+            const studentName = document.getElementById('studentName').value;
+            const studentProgram = document.getElementById('studentProgram').value;
+            const studentBatch = document.getElementById('studentBatch').value;
+            const studentSupervisor = document.getElementById('studentSupervisor').value;
+            const studentStatus = document.querySelector('input[name="studentStatus"]:checked').value;
+            const editIndex = parseInt(editIndexInput.value);
+
+            if (!studentId || !studentName || !studentBatch || !studentSupervisor) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            const newStudent = {
+                id: studentId,
+                name: studentName,
+                program: studentProgram,
+                batch: studentBatch,
+                supervisor: studentSupervisor,
+                status: studentStatus
+            };
+
+            if (editIndex >= 0) {
+                // Update existing student
+                studentsData[editIndex] = newStudent;
+            } else {
+                // Add new student
+                studentsData.push(newStudent);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('students', JSON.stringify(studentsData));
+
+            // Refresh the table
+            renderStudents();
+
+            // Close modal
+            studentModal.classList.add('hidden');
+        }
+
+        // Handle edit student
+        function handleEditStudent(e) {
+            const row = e.target.closest('tr');
+            const index = parseInt(row.getAttribute('data-index'));
+            const student = studentsData[index];
+
+            // Fill the form with student data
+            document.getElementById('studentId').value = student.id;
+            document.getElementById('studentName').value = student.name;
+            document.getElementById('studentProgram').value = student.program;
+            document.getElementById('studentBatch').value = student.batch;
+            document.getElementById('studentSupervisor').value = student.supervisor;
+            document.querySelector(`input[name="studentStatus"][value="${student.status}"]`).checked = true;
+
+            // Update form title and button
+            document.getElementById('formTitle').textContent = 'Edit Student';
+            document.getElementById('submitBtn').textContent = 'Update';
+            editIndexInput.value = index;
+
+            // Show modal
+            studentModal.classList.remove('hidden');
+        }
+
+        // Handle delete student
+        function handleDeleteStudent(e) {
+            if (confirm('Are you sure you want to delete this student?')) {
+                const row = e.target.closest('tr');
+                const index = parseInt(row.getAttribute('data-index'));
+
+                // Remove student from array
+                studentsData.splice(index, 1);
+
+                // Save to localStorage
+                localStorage.setItem('students', JSON.stringify(studentsData));
+
+                // Refresh the table
+                renderStudents();
+            }
+        }
+
+        // Filter students based on search and filters
+        function filterStudents() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const statusFilterValue = statusFilter.value;
+            const programFilterValue = programFilter.value;
+
+            const filteredStudents = studentsData.filter(student => {
+                const matchesSearch = 
+                    student.id.toLowerCase().includes(searchTerm) ||
+                    student.name.toLowerCase().includes(searchTerm) ||
+                    student.program.toLowerCase().includes(searchTerm) ||
+                    student.batch.toLowerCase().includes(searchTerm) ||
+                    student.supervisor.toLowerCase().includes(searchTerm);
+
+                const matchesStatus = statusFilterValue === 'all' || student.status === statusFilterValue;
+                const matchesProgram = programFilterValue === 'all' || student.program === programFilterValue;
+
+                return matchesSearch && matchesStatus && matchesProgram;
+            });
+
+            renderStudents(filteredStudents);
+        }
+    </script>
+</body>
+</html>
